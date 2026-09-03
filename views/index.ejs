@@ -24,11 +24,16 @@
       </header>
 
         <div class="chat">
-            <p class="empty">Spørg mig om spil eller noget andet!</p>
-            <% if (question) { %>
-            <article class="question"><p><%= question %></p></article>
+            <% if (messages.length === 0) { %>
+                <p class="empty">Spørg mig om spil eller noget andet!</p>
+            <% } %>
+            <% for (const message of messages) { %>
+                <div class="bubble <%= message.type === 'question' ? 'user' : 'bot' %>"><%= message.text %></div>
             <% } %>
         </div>
+        <% if (error) { %>
+            <p role="alert" class="error"><%= error %></p>
+        <% } %>
 
       <form class="ask-form" action="/ask" method="POST">
         <input id="question" type="text" name="question" placeholder="Skriv et spørgsmål …" autocomplete="off">
