@@ -43,6 +43,9 @@ const answers = [
   }
 ];
 
+function sanitizeQuestion(input) {
+  return input.replace(/[\u0000-\u001F\u007F]/g, "");
+}
 
 function findAnswer(question) {
   const normalizedQuestion = question.toLowerCase();
@@ -63,7 +66,8 @@ app.get("/", (request, response) => {
 
 
 app.post("/ask", (request, response) => {
-  const question = request.body.question;
+  const rawQuestion = request.body.question;
+  const question = sanitizeQuestion(rawQuestion).trim();
   let error = "";
   
   if (!question) {
