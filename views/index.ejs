@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AMAbot — spørg Sanne om hvad som helst</title>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <main class="page">
@@ -39,6 +39,21 @@
         <input id="question" type="text" name="question" placeholder="Skriv et spørgsmål …" autocomplete="off">
         <button type="submit" aria-label="Send">→</button>
       </form>
+
+      <form class="clear-form" action="/clear-messages" method="POST">
+        <button type="submit">Ryd beskeder</button>
+      </form>
+      <% if (Object.keys(topicStats).length > 0) { %>
+        <section class="stats">
+            <h2>Mest spurgte emner</h2>
+            <ul>
+                <% const sortedTopics = Object.entries(topicStats).sort((a, b) => b[1] - a[1]); %>
+                <% for (const [category, count] of sortedTopics) { %>
+                     <li><span class="stat-topic"><%= category %></span><span class="stat-count"><%= count %></span></li>
+                <% } %>
+            </ul>
+        </section>
+        <% } %>
     </section>
   </main>
 </body>
