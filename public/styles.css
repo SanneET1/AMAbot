@@ -45,7 +45,7 @@ h1, h3 { font-family: var(--font-heading); font-weight: 400; margin: 0; }
 
 .stats {
   width: 100%; padding: 18px 20px;
-  background: var(--color-surface); border-radius: var(--radius-lg);
+  background: var(--color-surface);
   box-shadow: var(--shadow-lg);
 }
 .stats h2 { margin: 0 0 10px; font-family: var(--font-heading); font-size: 18px; font-weight: 400; }
@@ -115,8 +115,10 @@ h1, h3 { font-family: var(--font-heading); font-weight: 400; margin: 0; }
 .ask-form button:hover { background: var(--color-accent-600); }
 
 /* — all questions — */
-.all-questions { padding: 0 20px 20px; }
-.all-questions summary { cursor: pointer; font-size: 12.5px; color: rgba(32, 30, 29, .55); }
+.all-questions { 
+    padding: 0 20px 20px; }
+.all-questions summary { 
+    cursor: pointer; font-size: 12.5px; color: rgba(32, 30, 29, .55); }
 .all-questions ul {
   max-height: 150px; overflow-y: auto;
   list-style: none; margin: 10px 0 0; padding: 0 6px 0 0;
@@ -166,5 +168,6 @@ h1, h3 { font-family: var(--font-heading); font-weight: 400; margin: 0; }
     border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
   }
 
-  .stats { max-width: 640px; }
+  .stats { 
+    max-width: 640px; }
 }

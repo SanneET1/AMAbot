@@ -54,8 +54,20 @@ const answers = [
   {
     category: "uddannelse",
     keywords: ["studie", "studeret", "uddannelse", "multimediedesign"],
-    answer: "Multimediedesigner. Nu det så webudvikling — lad os se hvad det kan.",
+    answer: "Multimediedesigner. Nu det så webudvikling så lad os se hvad det kan.",
     sample: "Hvilken uddannelse har du?"
+  },
+  {
+    category: "energidrikke",
+    keywords: ["energi", "drikke", "monster"],
+    answer: "Jeg er skiftes mellem redbull eller hvid monster, ja redbull er lidt blandet hvad folk synes!",
+    sample: "Hvad er din yndlingsenergidrikke?"
+  },
+  {
+    category: "sprog",
+    keywords: ["sprog", "taler", "sproget"],
+    answer: "Jeg taler dansk, engelsk samt jeg prøver at lære fransk nogen gange.",
+    sample: "Hvor mange sprog snakker du?"
   }
 ];
 
@@ -93,6 +105,8 @@ function reactionFor(category) {
     case "favorit": return "⭐";
     case "pc": return "🖥️";
     case "uddannelse": return "🎓";
+    case "energidrikke": return "⚡";
+    case "sprog": return "🗣️";
     default: return "🤖";
   }
 }
@@ -114,8 +128,8 @@ app.post("/ask", (request, response) => {
   } else {
     messages.push({ type: "question", text: question });
         const bestMatch = findBestAnswer(question);
-    const answer = bestMatch ? bestMatch.answer : "Beklager, det kan jeg ikke svare på";
-    const reaction = bestMatch ? reactionFor(bestMatch.category) : "🤔";
+        const answer = bestMatch ? bestMatch.answer : "Beklager, det kan jeg ikke svare på";
+        const reaction = bestMatch ? reactionFor(bestMatch.category) : "🤔";
     if (bestMatch) {
       topicStats[bestMatch.category] = (topicStats[bestMatch.category] || 0) + 1;
     }
@@ -131,6 +145,16 @@ app.post("/clear-messages", (request, response) => {
   messages.length = 0;
   for (const category of Object.keys(topicStats)) delete topicStats[category];
   response.redirect("/");
+});
+
+app.get("/debug", (request, response) => {
+  console.log(request.query);
+  response.send(request.query);
+});
+
+app.get("/debug/:name", (request, response) => {
+  console.log(request.params);
+  response.send(request.params);
 });
 
 app.listen(port, () => {
