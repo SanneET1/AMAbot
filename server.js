@@ -12,42 +12,50 @@ const answers = [
   {
     category: "navn",
     keywords: ["navn", "hedder", "kaldes"],
-    answer: "Sanne. Men ingame går jeg med navnet Fever"
+    answer: "Sanne. Men ingame går jeg med navnet Fever",
+    sample: "Hvad hedder du?",
   },
   {
     category: "alder",
     keywords: ["gammel", "alder", "år", "aar", "født"],
-    answer: "26 år. Gammel nok til at vide bedre, ung nok til at blive oppe til kl. 2 for “én ranked mere”."
+    answer: "26 år. Gammel nok til at vide bedre, ung nok til at blive oppe til kl. 2 for “én ranked mere”.",
+    sample: "Hvor gammel er du?",
   },
   {
     category: "bosted",
     keywords: ["bor", "bo", "aarhus", "brabrand", "kollegie", "by"],
-    answer: "På Aarhus kollegiet i Brabrand"
+    answer: "På Aarhus kollegiet i Brabrand",
+    sample: "Hvor bor du?"
   },
   {
     category: "forhold",
     keywords: ["single", "kæreste", "kaereste", "forhold", "fransk"],
-    answer: "Jeg har en fransk kæreste. Så ja, mit ordforråd rækker en lille smule længere end “croissant”."
+    answer: "Jeg har en fransk kæreste. Så ja, mit ordforråd rækker en lille smule længere end “croissant”.",
+    sample: "Er du i forhold?"
   },
   {
     category: "spil",
     keywords: ["spil", "spiller", "gamer", "gaming", "valorant", "cs2"],
-    answer: "Valorant og CS2 er hverdagen. Ellers spiller jeg stort set alt muligt."
+    answer: "Valorant og CS2 er hverdagen. Ellers spiller jeg stort set alt muligt.",
+     sample: "Hvilke spil spiller du?"
   },
   {
-    category: "livret",
+    category: "favorit",
     keywords: ["yndlings", "favorit", "singleplayer", "expedition", "33"],
-    answer: "Clair Obscur: Expedition 33. Den slog mig bagover fuldstændig."
+    answer: "Clair Obscur: Expedition 33. Den slog mig bagover fuldstændig.",
+    sample: "Hvad er din yndlingsspil?"
   },
   {
     category: "pc",
     keywords: ["pc", "computer", "bygger", "hardware"],
-    answer: "Ja. Jeg har bygget omkring 7 stationære computere og er en lille hardware-nørd."
+    answer: "Ja. Jeg har bygget omkring 7 stationære computere og er en lille hardware-nørd.",
+    sample: "Bygger du dine egne computere?"
   },
   {
     category: "uddannelse",
     keywords: ["studie", "studeret", "uddannelse", "multimediedesign"],
-    answer: "Multimediedesigner. Nu det så webudvikling — lad os se hvad det kan."
+    answer: "Multimediedesigner. Nu det så webudvikling — lad os se hvad det kan.",
+    sample: "Hvilken uddannelse har du?"
   }
 ];
 
@@ -82,7 +90,7 @@ function reactionFor(category) {
     case "bosted": return "🏠";
     case "forhold": return "💛";
     case "spil": return "🎮";
-    case "livret": return "⭐";
+    case "favorit": return "⭐";
     case "pc": return "🖥️";
     case "uddannelse": return "🎓";
     default: return "🤖";
@@ -90,7 +98,7 @@ function reactionFor(category) {
 }
 
 app.get("/", (request, response) => {
-  response.render("index", { messages, error: "", topicStats });
+  response.render("index", { messages, error: "", topicStats, answers });
 });
 
 
@@ -116,7 +124,7 @@ app.post("/ask", (request, response) => {
     
   
 
-  response.render("index", { messages, error, topicStats });
+  response.render("index", { messages, error, topicStats, answers });
 });
 
 app.post("/clear-messages", (request, response) => {

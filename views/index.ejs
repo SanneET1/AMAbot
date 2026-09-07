@@ -39,6 +39,11 @@
         <input id="question" type="text" name="question" placeholder="Skriv et spørgsmål …" autocomplete="off">
         <button type="submit" aria-label="Send">→</button>
       </form>
+      <div class="chips">
+        <% answers.slice(0, 3).forEach(function (item) { %>
+        <button type="button" class="chip" onclick="askQuestion(this)" data-question="<%= item.sample %>"><%= item.sample %></button>
+        <% }) %>
+        </div>
 
       <form class="clear-form" action="/clear-messages" method="POST">
         <button type="submit">Ryd beskeder</button>
@@ -56,5 +61,12 @@
         <% } %>
     </section>
   </main>
+    <script>
+    function askQuestion(button) {
+      const input = document.getElementById('question');
+      input.value = button.dataset.question;
+      input.closest('.chat-card').querySelector('.ask-form').submit();
+    }
+  </script>
 </body>
 </html>
