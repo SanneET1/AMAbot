@@ -78,7 +78,20 @@ function sanitizeQuestion(input) {
 }
 
 function countMatches(keywords, normalizedQuestion) {
-  return keywords.filter((keyword) => normalizedQuestion.includes(keyword)).length;
+  return keywords.filter((keyword) => {
+    const pattern = new RegExp(`\\b${keyword}\\b`, "i");
+    return pattern.test(normalizedQuestion);
+  }).length;
+}
+
+
+function startsWithQuestionWord(question) {
+  const q = question.trim();
+  return q.startsWith("hvad") || q.startsWith("hvor") || q.startsWith("hvem") || q.startsWith("er");
+}
+
+function endsWithQuestionMark(question) {
+  return question.trim().endsWith("?");
 }
 
 function findBestAnswer(question) {
@@ -125,6 +138,10 @@ app.post("/ask", (request, response) => {
     error = "skriv et spørgsmål før det sendes";
   } else if (question.length > 200) {
     error = "spørgsmålet er for langt. Max 200 tegn.";
+  } else if (!endsWithQuestionMark(question)) {
+    error = "spørgsmålet skal slutte med et spørgsmålstegn (?)";
+  } else if (!startsWithQuestionWord(question)) {
+    error = "prøv at starte spørgsmålet med hvad, hvor, hvem eller er";
   } else {
     messages.push({ type: "question", text: question });
         const bestMatch = findBestAnswer(question);
@@ -156,6 +173,7 @@ app.get("/debug/:name", (request, response) => {
   console.log(request.params);
   response.send(request.params);
 });
+
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
