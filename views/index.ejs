@@ -37,13 +37,16 @@
 
       <form class="ask-form" action="/ask" method="POST">
         <input id="question" type="text" name="question" placeholder="Skriv et spørgsmål …" autocomplete="off">
+        <span class="select-wrap">
+          <select class="question-select" onchange="askFromDropdown(this)" aria-label="Vælg et spørgsmål">
+            <option value="" disabled selected>Vælg et spørgsmål…</option>
+            <% answers.forEach(function (item) { %>
+            <option value="<%= item.sample %>"><%= item.sample %></option>
+            <% }) %>
+          </select>
+        </span>
         <button type="submit" aria-label="Send">→</button>
       </form>
-      <div class="chips">
-        <% answers.slice(0, 3).forEach(function (item) { %>
-        <button type="button" class="chip" onclick="askQuestion(this)" data-question="<%= item.sample %>"><%= item.sample %></button>
-        <% }) %>
-        </div>
 
       <form class="clear-form" action="/clear-messages" method="POST">
         <button type="submit">Ryd beskeder</button>
@@ -62,11 +65,25 @@
     </section>
   </main>
     <script>
+    function askFromDropdown(select) {
+      const input = document.getElementById('question');
+      input.value = select.value;
+      select.closest('.chat-card').querySelector('.ask-form').submit();
+    }
+
+    // Function to handle button click and submit the form with the selected question
     function askQuestion(button) {
       const input = document.getElementById('question');
       input.value = button.dataset.question;
       input.closest('.chat-card').querySelector('.ask-form').submit();
     }
+    // Scroll chat to bottom on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      const chat = document.querySelector('.chat');
+      if (chat) {
+        chat.scrollTop = chat.scrollHeight;
+    }
+  });
   </script>
 </body>
 </html>

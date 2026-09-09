@@ -86,7 +86,7 @@ function countMatches(keywords, normalizedQuestion) {
 
 
 function startsWithQuestionWord(question) {
-  const q = question.trim();
+  const q = question.trim().toLowerCase();
   return q.startsWith("hvad") || q.startsWith("hvor") || q.startsWith("hvem") || q.startsWith("er");
 }
 
