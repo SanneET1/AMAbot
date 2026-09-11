@@ -1,4 +1,5 @@
 import express from "express";
+import fs from "node:fs/promises";
 
 const app = express();
 const port = 3000;
@@ -6,6 +7,18 @@ const port = 3000;
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+
+/*
+async function loadMessages() {
+  const data = await fs.readFile("./data/messages.json", "utf8");
+  return JSON.parse(data);
+}
+
+async function saveMessages(messages) {
+  const json = JSON.stringify(messages, null, 2);
+  await fs.writeFile("./data/messages.json", json);
+}
+  */
 
 const messages = [];
 const answers = [
@@ -29,9 +42,9 @@ const answers = [
   },
   {
     category: "forhold",
-    keywords: ["single", "kæreste", "kaereste", "forhold", "fransk"],
+    keywords: ["kæreste", "kaereste", "forhold", "fransk"],
     answer: "Jeg har en fransk kæreste. Så ja, mit ordforråd rækker en lille smule længere end “croissant”.",
-    sample: "Er du i forhold?"
+    sample: "Har du en kæreste?"
   },
   {
     category: "spil",
@@ -41,15 +54,15 @@ const answers = [
   },
   {
     category: "favorit",
-    keywords: ["yndlings", "favorit", "singleplayer", "expedition", "33"],
+    keywords: ["yndlings", "favorit", "singleplayer", "expedition", "33", "yndlingsspil", "favoritspil"],
     answer: "Clair Obscur: Expedition 33. Den slog mig bagover fuldstændig.",
-    sample: "Hvad er din yndlingsspil?"
+    sample: "Hvad er dit yndlingsspil?"
   },
   {
     category: "pc",
-    keywords: ["pc", "computer", "bygger", "hardware"],
+    keywords: ["pc", "computer", "bygger", "hardware, computer, stationær, computere, bygget"],
     answer: "Ja. Jeg har bygget omkring 7 stationære computere og er en lille hardware-nørd.",
-    sample: "Bygger du dine egne computere?"
+    sample: "Har du bygget computer før?"
   },
   {
     category: "uddannelse",
@@ -59,13 +72,13 @@ const answers = [
   },
   {
     category: "energidrikke",
-    keywords: ["energi", "drikke", "monster"],
+    keywords: ["energi", "drikke", "monster", "yndlingsenergidrikke"],
     answer: "Jeg er skiftes mellem redbull eller hvid monster, ja redbull er lidt blandet hvad folk synes!",
     sample: "Hvad er din yndlingsenergidrikke?"
   },
   {
     category: "sprog",
-    keywords: ["sprog", "taler", "sproget"],
+    keywords: ["sprog", "taler", "sproget", "snakker"],
     answer: "Jeg taler dansk, engelsk samt jeg prøver at lære fransk nogen gange.",
     sample: "Hvor mange sprog snakker du?"
   }
@@ -87,7 +100,7 @@ function countMatches(keywords, normalizedQuestion) {
 
 function startsWithQuestionWord(question) {
   const q = question.trim().toLowerCase();
-  return q.startsWith("hvad") || q.startsWith("hvor") || q.startsWith("hvem") || q.startsWith("er");
+  return q.startsWith("hvad") || q.startsWith("hvor") || q.startsWith("hvem") || q.startsWith("er") || q.startsWith("har") || q.startsWith("hvilke");
 }
 
 function endsWithQuestionMark(question) {
