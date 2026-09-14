@@ -8,7 +8,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
-/*
+
 async function loadMessages() {
   const data = await fs.readFile("./data/messages.json", "utf8");
   return JSON.parse(data);
@@ -18,9 +18,19 @@ async function saveMessages(messages) {
   const json = JSON.stringify(messages, null, 2);
   await fs.writeFile("./data/messages.json", json);
 }
-  */
+/*saving the stats*/
 
-const messages = [];
+async function loadTopicStats() {
+  const data = await fs.readFile("./data/topic-stats.json", "utf8");
+  return JSON.parse(data);
+}
+
+async function saveTopicStats(topicStats) {
+  const json = JSON.stringify(topicStats, null, 2);
+  await fs.writeFile("./data/topic-stats.json", json);
+}
+  
+
 const answers = [
   {
     category: "navn",
@@ -72,7 +82,7 @@ const answers = [
   },
   {
     category: "energidrikke",
-    keywords: ["energi", "drikke", "monster", "yndlingsenergidrikke"],
+    keywords: ["energi", "drikke", "monster", "yndlingsenergidrikke", "energidrikke"],
     answer: "Jeg er skiftes mellem redbull eller hvid monster, ja redbull er lidt blandet hvad folk synes!",
     sample: "Hvad er din yndlingsenergidrikke?"
   },
@@ -84,7 +94,7 @@ const answers = [
   }
 ];
 
-const topicStats = {};
+
 
 function sanitizeQuestion(input) {
   return input.replace(/[\u0000-\u001F\u007F]/g, "");
@@ -137,16 +147,22 @@ function reactionFor(category) {
   }
 }
 
-app.get("/", (request, response) => {
+app.get("/", async (request, response) => {
+  const messages = await loadMessages();
+  const topicStats = await loadTopicStats();
+
   response.render("index", { messages, error: "", topicStats, answers });
 });
 
 
-app.post("/ask", (request, response) => {
+app.post("/ask", async (request, response) => {
+  const messages = await loadMessages(); 
+  const topicStats = await loadTopicStats();         // ← NY: hent historikken fra filen
+
   const rawQuestion = request.body.question;
   const question = sanitizeQuestion(rawQuestion).trim();
   let error = "";
-  
+
   if (!question) {
     error = "skriv et spørgsmål før det sendes";
   } else if (question.length > 200) {
@@ -157,23 +173,24 @@ app.post("/ask", (request, response) => {
     error = "prøv at starte spørgsmålet med hvad, hvor, hvem eller er";
   } else {
     messages.push({ type: "question", text: question });
-        const bestMatch = findBestAnswer(question);
-        const answer = bestMatch ? bestMatch.answer : "Beklager, det kan jeg ikke svare på";
-        const reaction = bestMatch ? reactionFor(bestMatch.category) : "🤔";
+    const bestMatch = findBestAnswer(question);
+    const answer = bestMatch ? bestMatch.answer : "Beklager, det kan jeg ikke svare på";
+    const reaction = bestMatch ? reactionFor(bestMatch.category) : "🤔";
     if (bestMatch) {
       topicStats[bestMatch.category] = (topicStats[bestMatch.category] || 0) + 1;
     }
     messages.push({ type: "answer", text: `${reaction} ${answer}` });
+
+    await saveMessages(messages); 
+    await saveTopicStats(topicStats);               
   }
-    
-  
 
   response.render("index", { messages, error, topicStats, answers });
 });
 
-app.post("/clear-messages", (request, response) => {
-  messages.length = 0;
-  for (const category of Object.keys(topicStats)) delete topicStats[category];
+app.post("/clear-messages", async (request, response) => {
+  await saveMessages([]);
+  await saveTopicStats({});
   response.redirect("/");
 });
 

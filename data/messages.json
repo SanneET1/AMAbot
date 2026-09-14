@@ -1,0 +1,74 @@
+[
+  {
+    "type": "question",
+    "text": "Har du en kæreste?"
+  },
+  {
+    "type": "answer",
+    "text": "💛 Jeg har en fransk kæreste. Så ja, mit ordforråd rækker en lille smule længere end “croissant”."
+  },
+  {
+    "type": "question",
+    "text": "Hvad spiller du?"
+  },
+  {
+    "type": "answer",
+    "text": "🎮 Valorant og CS2 er hverdagen. Ellers spiller jeg stort set alt muligt."
+  },
+  {
+    "type": "question",
+    "text": "Hvad drikker du af energidrikke?"
+  },
+  {
+    "type": "answer",
+    "text": "🤔 Beklager, det kan jeg ikke svare på"
+  },
+  {
+    "type": "question",
+    "text": "hvad for en uddannelse er du fra?"
+  },
+  {
+    "type": "answer",
+    "text": "🎓 Multimediedesigner. Nu det så webudvikling så lad os se hvad det kan."
+  },
+  {
+    "type": "question",
+    "text": "Hvad hedder du?"
+  },
+  {
+    "type": "answer",
+    "text": "👋 Sanne. Men ingame går jeg med navnet Fever"
+  },
+  {
+    "type": "question",
+    "text": "Hvad spiller du?"
+  },
+  {
+    "type": "answer",
+    "text": "🎮 Valorant og CS2 er hverdagen. Ellers spiller jeg stort set alt muligt."
+  },
+  {
+    "type": "question",
+    "text": "Hvad er din livret?"
+  },
+  {
+    "type": "answer",
+    "text": "🤔 Beklager, det kan jeg ikke svare på"
+  },
+  {
+    "type": "question",
+    "text": "Har du bygget computer?"
+  },
+  {
+    "type": "answer",
+    "text": "🖥️ Ja. Jeg har bygget omkring 7 stationære computere og er en lille hardware-nørd."
+  },
+  {
+    "type": "question",
+    "text": "Hvad hedder du?"
+  },
+  {
+    "type": "answer",
+    "text": "👋 Sanne. Men ingame går jeg med navnet Fever"
+  }
+]
