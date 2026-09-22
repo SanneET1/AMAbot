@@ -1,6 +1,8 @@
 import express from "express";
 import fs from "node:fs/promises";
 
+/*Save AMAbot before splitting into routes and data modules*/
+
 const app = express();
 const port = 3000;
 
