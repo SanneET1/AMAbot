@@ -119,15 +119,5 @@
     ],
     "answer": "Jeg taler dansk, engelsk samt jeg prøver at lære fransk nogen gange.",
     "sample": "Hvor mange sprog snakker du?"
-  },
-  {
-    "category": "mad",
-    "keywords": [
-      "mad",
-      "spise",
-      "livret, aftensmad"
-    ],
-    "answer": "Min livret er lasagne.",
-    "sample": "Hvad er din livret?"
   }
 ]
