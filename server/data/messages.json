@@ -70,5 +70,10 @@
   {
     "type": "answer",
     "text": "👋 Sanne. Men ingame går jeg med navnet Fever"
+  },
+  {
+    "type": "question",
+    "text": "Hvad hedder du?",
+    "createdAt": "2026-09-22T11:28:52.430Z"
   }
 ]

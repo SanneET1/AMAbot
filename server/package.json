@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-  "dev": "node --watch server.js",
-  "start": "node server.js"
-},
+    "dev": "node --watch server.js",
+    "start": "node server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SanneET1/AMAbot.git"
@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/SanneET1/AMAbot#readme",
   "dependencies": {
-    "ejs": "^6.0.1",
     "express": "^5.2.1"
   }
 }

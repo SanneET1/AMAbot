@@ -4,9 +4,7 @@ import fs from "node:fs/promises";
 const app = express();
 const port = 3000;
 
-app.set("view engine", "ejs");
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 
 async function loadMessages() {
@@ -147,51 +145,61 @@ function reactionFor(category) {
   }
 }
 
-app.get("/", async (request, response) => {
-  const messages = await loadMessages();
-  const topicStats = await loadTopicStats();
 
-  response.render("index", { messages, error: "", topicStats, answers });
+app.get("/messages", async (request, response) => {
+  const messages = await loadMessages();
+
+  response.json(messages);
 });
 
-
-app.post("/ask", async (request, response) => {
-  const messages = await loadMessages(); 
-  const topicStats = await loadTopicStats();         // ← NY: hent historikken fra filen
-
-  const rawQuestion = request.body.question;
-  const question = sanitizeQuestion(rawQuestion).trim();
-  let error = "";
+app.post("/messages", async (request, response) => {
+  const messages = await loadMessages();
+  const question = sanitizeQuestion(request.body.question ?? "").trim();
 
   if (!question) {
-    error = "skriv et spørgsmål før det sendes";
-  } else if (question.length > 200) {
-    error = "spørgsmålet er for langt. Max 200 tegn.";
-  } else if (!endsWithQuestionMark(question)) {
-    error = "spørgsmålet skal slutte med et spørgsmålstegn (?)";
-  } else if (!startsWithQuestionWord(question)) {
-    error = "prøv at starte spørgsmålet med hvad, hvor, hvem eller er";
-  } else {
-    messages.push({ type: "question", text: question });
-    const bestMatch = findBestAnswer(question);
-    const answer = bestMatch ? bestMatch.answer : "Beklager, det kan jeg ikke svare på";
-    const reaction = bestMatch ? reactionFor(bestMatch.category) : "🤔";
-    if (bestMatch) {
-      topicStats[bestMatch.category] = (topicStats[bestMatch.category] || 0) + 1;
-    }
-    messages.push({ type: "answer", text: `${reaction} ${answer}` });
-
-    await saveMessages(messages); 
-    await saveTopicStats(topicStats);               
+    response.json({ error: "Skriv et spørgsmål, før du sender." });
+    return;
+  }
+  if (question.length > 200) {
+    response.json({ error: "Spørgsmålet er for langt. Max 200 tegn." });
+    return;
+  }
+  if (!endsWithQuestionMark(question)) {
+    response.json({ error: "Spørgsmålet skal slutte med et spørgsmålstegn (?)" });
+    return;
+  }
+  if (!startsWithQuestionWord(question)) {
+    response.json({ error: "Prøv at starte spørgsmålet med hvad, hvor, hvem eller er" });
+    return;
   }
 
-  response.render("index", { messages, error, topicStats, answers });
+  const topicStats = await loadTopicStats();
+
+  const message = { type: "question", text: question, createdAt: new Date().toISOString() };
+  messages.push(message);
+
+  const bestMatch = findBestAnswer(question);
+  const answer = bestMatch ? bestMatch.answer : "Beklager, det kan jeg ikke svare på";
+  const reaction = bestMatch ? reactionFor(bestMatch.category) : "🤔";
+
+  if (bestMatch) {
+    topicStats[bestMatch.category] = (topicStats[bestMatch.category] || 0) + 1;
+  }
+
+  const answerMessage = { type: "answer", text: `${reaction} ${answer}`, createdAt: new Date().toISOString() };
+  messages.push(answerMessage);
+
+  await saveMessages(messages);
+  await saveTopicStats(topicStats);
+
+  response.json({ question: message, answer: answerMessage });
 });
 
-app.post("/clear-messages", async (request, response) => {
+app.delete("/messages", async (request, response) => {
   await saveMessages([]);
   await saveTopicStats({});
-  response.redirect("/");
+
+  response.send();
 });
 
 app.get("/debug", (request, response) => {
