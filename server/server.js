@@ -27,70 +27,17 @@ async function saveTopicStats(topicStats) {
   const json = JSON.stringify(topicStats, null, 2);
   await fs.writeFile("./data/topic-stats.json", json);
 }
-  
+/**/ 
 
-const answers = [
-  {
-    category: "navn",
-    keywords: ["navn", "hedder", "kaldes"],
-    answer: "Sanne. Men ingame går jeg med navnet Fever",
-    sample: "Hvad hedder du?",
-  },
-  {
-    category: "alder",
-    keywords: ["gammel", "alder", "år", "aar", "født"],
-    answer: "26 år. Gammel nok til at vide bedre, ung nok til at blive oppe til kl. 2 for “én ranked mere”.",
-    sample: "Hvor gammel er du?",
-  },
-  {
-    category: "bosted",
-    keywords: ["bor", "bo", "aarhus", "brabrand", "kollegie", "by"],
-    answer: "På Aarhus kollegiet i Brabrand",
-    sample: "Hvor bor du?"
-  },
-  {
-    category: "forhold",
-    keywords: ["kæreste", "kaereste", "forhold", "fransk"],
-    answer: "Jeg har en fransk kæreste. Så ja, mit ordforråd rækker en lille smule længere end “croissant”.",
-    sample: "Har du en kæreste?"
-  },
-  {
-    category: "spil",
-    keywords: ["spil", "spiller", "gamer", "gaming", "valorant", "cs2"],
-    answer: "Valorant og CS2 er hverdagen. Ellers spiller jeg stort set alt muligt.",
-     sample: "Hvilke spil spiller du?"
-  },
-  {
-    category: "favorit",
-    keywords: ["yndlings", "favorit", "singleplayer", "expedition", "33", "yndlingsspil", "favoritspil"],
-    answer: "Clair Obscur: Expedition 33. Den slog mig bagover fuldstændig.",
-    sample: "Hvad er dit yndlingsspil?"
-  },
-  {
-    category: "pc",
-    keywords: ["pc", "computer", "bygger", "hardware, computer, stationær, computere, bygget"],
-    answer: "Ja. Jeg har bygget omkring 7 stationære computere og er en lille hardware-nørd.",
-    sample: "Har du bygget computer før?"
-  },
-  {
-    category: "uddannelse",
-    keywords: ["studie", "studeret", "uddannelse", "multimediedesign"],
-    answer: "Multimediedesigner. Nu det så webudvikling så lad os se hvad det kan.",
-    sample: "Hvilken uddannelse har du?"
-  },
-  {
-    category: "energidrikke",
-    keywords: ["energi", "drikke", "monster", "yndlingsenergidrikke", "energidrikke"],
-    answer: "Jeg er skiftes mellem redbull eller hvid monster, ja redbull er lidt blandet hvad folk synes!",
-    sample: "Hvad er din yndlingsenergidrikke?"
-  },
-  {
-    category: "sprog",
-    keywords: ["sprog", "taler", "sproget", "snakker"],
-    answer: "Jeg taler dansk, engelsk samt jeg prøver at lære fransk nogen gange.",
-    sample: "Hvor mange sprog snakker du?"
-  }
-];
+async function loadAnswers() {
+  const data = await fs.readFile("./data/answers.json", "utf8");
+  return JSON.parse(data);
+}
+
+async function saveAnswers(answers) {
+  const json = JSON.stringify(answers, null, 2);
+  await fs.writeFile("./data/answers.json", json);
+}
 
 
 
@@ -115,7 +62,7 @@ function endsWithQuestionMark(question) {
   return question.trim().endsWith("?");
 }
 
-function findBestAnswer(question) {
+function findBestAnswer(question, answers) {
   const normalizedQuestion = question.toLowerCase();
   let bestMatch = null;
 
@@ -175,10 +122,12 @@ app.post("/messages", async (request, response) => {
 
   const topicStats = await loadTopicStats();
 
+  const answers = await loadAnswers();
+
   const message = { type: "question", text: question, createdAt: new Date().toISOString() };
   messages.push(message);
 
-  const bestMatch = findBestAnswer(question);
+    const bestMatch = findBestAnswer(question, answers);
   const answer = bestMatch ? bestMatch.answer : "Beklager, det kan jeg ikke svare på";
   const reaction = bestMatch ? reactionFor(bestMatch.category) : "🤔";
 
@@ -198,6 +147,57 @@ app.post("/messages", async (request, response) => {
 app.delete("/messages", async (request, response) => {
   await saveMessages([]);
   await saveTopicStats({});
+
+  response.send();
+});
+
+app.get("/answers", async (request, response) => {
+  const answers = await loadAnswers();
+
+  response.json(answers);
+});
+
+app.get("/answers/:category", async (request, response) => {
+  const answers = await loadAnswers();
+  const answerRule = answers.find((a) => a.category === request.params.category);
+
+  response.json(answerRule);
+});
+
+app.post("/answers", async (request, response) => {
+  const answers = await loadAnswers();
+
+  const newAnswerRule = {
+    category: request.body.category,
+    keywords: request.body.keywords,
+    answer: request.body.answer,
+    sample: request.body.sample,
+  };
+
+  answers.push(newAnswerRule);
+  await saveAnswers(answers);
+
+  response.json(newAnswerRule);
+});
+
+app.put("/answers/:category", async (request, response) => {
+  const answers = await loadAnswers();
+  const answerRule = answers.find((a) => a.category === request.params.category);
+
+  answerRule.keywords = request.body.keywords;
+  answerRule.answer = request.body.answer;
+  answerRule.sample = request.body.sample;
+
+  await saveAnswers(answers);
+
+  response.json(answerRule);
+});
+
+app.delete("/answers/:category", async (request, response) => {
+  const answers = await loadAnswers();
+  const remainingAnswers = answers.filter((a) => a.category !== request.params.category);
+
+  await saveAnswers(remainingAnswers);
 
   response.send();
 });

@@ -1,0 +1,133 @@
+[
+  {
+    "category": "navn",
+    "keywords": [
+      "navn",
+      "hedder",
+      "kaldes"
+    ],
+    "answer": "Sanne. Men ingame går jeg med navnet Fever",
+    "sample": "Hvad hedder du?"
+  },
+  {
+    "category": "alder",
+    "keywords": [
+      "gammel",
+      "alder",
+      "år",
+      "aar",
+      "født"
+    ],
+    "answer": "26 år. Gammel nok til at vide bedre, ung nok til at blive oppe til kl. 2 for “én ranked mere”.",
+    "sample": "Hvor gammel er du?"
+  },
+  {
+    "category": "bosted",
+    "keywords": [
+      "bor",
+      "bo",
+      "aarhus",
+      "brabrand",
+      "kollegie",
+      "by"
+    ],
+    "answer": "På Aarhus kollegiet i Brabrand",
+    "sample": "Hvor bor du?"
+  },
+  {
+    "category": "forhold",
+    "keywords": [
+      "kæreste",
+      "kaereste",
+      "forhold",
+      "fransk"
+    ],
+    "answer": "Jeg har en fransk kæreste. Så ja, mit ordforråd rækker en lille smule længere end “croissant”.",
+    "sample": "Har du en kæreste?"
+  },
+  {
+    "category": "spil",
+    "keywords": [
+      "spil",
+      "spiller",
+      "gamer",
+      "gaming",
+      "valorant",
+      "cs2"
+    ],
+    "answer": "Valorant og CS2 er hverdagen. Ellers spiller jeg stort set alt muligt.",
+    "sample": "Hvilke spil spiller du?"
+  },
+  {
+    "category": "favorit",
+    "keywords": [
+      "yndlings",
+      "favorit",
+      "singleplayer",
+      "expedition",
+      "33",
+      "yndlingsspil",
+      "favoritspil"
+    ],
+    "answer": "Clair Obscur: Expedition 33. Den slog mig bagover fuldstændig.",
+    "sample": "Hvad er dit yndlingsspil?"
+  },
+  {
+    "category": "pc",
+    "keywords": [
+      "pc",
+      "computer",
+      "bygger",
+      "hardware",
+      "stationær",
+      "computere",
+      "bygget"
+    ],
+    "answer": "Ja. Jeg har bygget omkring 7 stationære computere og er en lille hardware-nørd.",
+    "sample": "Har du bygget computer før?"
+  },
+  {
+    "category": "uddannelse",
+    "keywords": [
+      "studie",
+      "studeret",
+      "uddannelse",
+      "multimediedesign"
+    ],
+    "answer": "Multimediedesigner. Nu det så webudvikling så lad os se hvad det kan.",
+    "sample": "Hvilken uddannelse har du?"
+  },
+  {
+    "category": "energidrikke",
+    "keywords": [
+      "energi",
+      "drikke",
+      "monster",
+      "yndlingsenergidrikke",
+      "energidrikke"
+    ],
+    "answer": "Jeg er skiftes mellem redbull eller hvid monster, ja redbull er lidt blandet hvad folk synes!",
+    "sample": "Hvad er din yndlingsenergidrikke?"
+  },
+  {
+    "category": "sprog",
+    "keywords": [
+      "sprog",
+      "taler",
+      "sproget",
+      "snakker"
+    ],
+    "answer": "Jeg taler dansk, engelsk samt jeg prøver at lære fransk nogen gange.",
+    "sample": "Hvor mange sprog snakker du?"
+  },
+  {
+    "category": "mad",
+    "keywords": [
+      "mad",
+      "spise",
+      "livret, aftensmad"
+    ],
+    "answer": "Min livret er lasagne.",
+    "sample": "Hvad er din livret?"
+  }
+]
