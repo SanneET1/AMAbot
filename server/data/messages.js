@@ -1,8 +1,12 @@
 import fs from "node:fs/promises";
 
 export async function loadMessages() {
-  const data = await fs.readFile("./data/messages.json", "utf8");
-  return JSON.parse(data);
+  try {
+    const data = await fs.readFile("./data/messages.json", "utf8");
+    return JSON.parse(data);
+  } catch (error) {
+    throw new Error("Kunne ikke hente beskeder. data/messages.json mangler eller er ugyldig.");
+  }
 }
 
 export async function saveMessages(messages) {
@@ -11,8 +15,12 @@ export async function saveMessages(messages) {
 }
 
 export async function loadTopicStats() {
-  const data = await fs.readFile("./data/topic-stats.json", "utf8");
-  return JSON.parse(data);
+  try {
+    const data = await fs.readFile("./data/topic-stats.json", "utf8");
+    return JSON.parse(data);
+  } catch (error) {
+    throw new Error("Kunne ikke hente emnestatistik. data/topic-stats.json mangler eller er ugyldig.");
+  }
 }
 
 export async function saveTopicStats(topicStats) {

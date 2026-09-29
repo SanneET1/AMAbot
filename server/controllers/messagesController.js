@@ -2,6 +2,15 @@ import { loadMessages, saveMessages, loadTopicStats, saveTopicStats } from "../d
 import { loadAnswers } from "../data/answers.js";
 import { sanitizeQuestion, validateQuestion, findBestAnswer, reactionFor } from "../answerLogic.js";
 
+function escapeHtml(text) {
+  return text
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
 export async function getMessages(request, response) {
   const messages = await loadMessages();
 
@@ -19,7 +28,7 @@ export async function createMessage(request, response) {
 
   const error = validateQuestion(question);
   if (error) {
-    response.json({ error });
+    response.status(400).json({ error });
     return;
   }
 
@@ -27,7 +36,7 @@ export async function createMessage(request, response) {
   const answers = await loadAnswers();
   const topicStats = await loadTopicStats();
 
-  const message = { type: "question", text: question, createdAt: new Date().toISOString() };
+  const message = { type: "question", text: escapeHtml(question), createdAt: new Date().toISOString() };
   messages.push(message);
 
   const bestMatch = findBestAnswer(question, answers);
@@ -38,18 +47,18 @@ export async function createMessage(request, response) {
     topicStats[bestMatch.category] = (topicStats[bestMatch.category] || 0) + 1;
   }
 
-  const answerMessage = { type: "answer", text: `${reaction} ${answer}`, createdAt: new Date().toISOString() };
+  const answerMessage = { type: "answer", text: escapeHtml(`${reaction} ${answer}`), createdAt: new Date().toISOString() };
   messages.push(answerMessage);
 
   await saveMessages(messages);
   await saveTopicStats(topicStats);
 
-  response.json({ question: message, answer: answerMessage });
+  response.status(201).json({ question: message, answer: answerMessage });
 }
 
 export async function deleteMessages(request, response) {
   await saveMessages([]);
   await saveTopicStats({});
 
-  response.send();
+  response.status(204).send();
 }

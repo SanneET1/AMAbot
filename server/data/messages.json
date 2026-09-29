@@ -88,5 +88,25 @@
     "type": "answer",
     "text": "🎂 26 år. Gammel nok til at vide bedre, ung nok til at blive oppe til kl. 2 for “én ranked mere”.",
     "createdAt": "2026-09-29T16:31:56.751Z"
+  },
+  {
+    "type": "question",
+    "text": "Har du en kæreste?",
+    "createdAt": "2026-09-29T16:45:39.133Z"
+  },
+  {
+    "type": "answer",
+    "text": "💛 Jeg har en fransk kæreste. Så ja, mit ordforråd rækker en lille smule længere end “croissant”.",
+    "createdAt": "2026-09-29T16:45:39.133Z"
+  },
+  {
+    "type": "question",
+    "text": "Hvad hedder du?",
+    "createdAt": "2026-09-29T16:47:33.061Z"
+  },
+  {
+    "type": "answer",
+    "text": "👋 Sanne. Men ingame går jeg med navnet Fever",
+    "createdAt": "2026-09-29T16:47:33.061Z"
   }
 ]
