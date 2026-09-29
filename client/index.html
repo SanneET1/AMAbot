@@ -4,88 +4,47 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AMAbot Sanne</title>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
 </head>
 <body>
   <main class="page">
     <div class="hero">
-      <div class="avatar avatar-hero"><img src="/sanne.jpg" alt="Sanne"></div>
+      <div class="avatar avatar-hero"><img src="sanne.jpg" alt="Sanne"></div>
       <h1>Spørg Mig!</h1>
       <p class="lead">Spørg mig eller vælg et af spørgsmålene</p>
     </div>
 
     <section class="chat-card">
       <header class="chat-bar">
-        <div class="avatar avatar-bar"><img src="/sanne.jpg" alt=""></div>
+        <div class="avatar avatar-bar"><img src="sanne.jpg" alt=""></div>
         <div class="chat-bar-text">
           <span class="bot-name">AMAbot</span>
           <span class="status"><span class="status-dot"></span>Svarer på alt jeg nu kan</span>
         </div>
       </header>
 
-        <div class="chat">
-            <% if (messages.length === 0) { %>
-                <p class="empty">Spørg mig om spil eller noget andet!</p>
-            <% } %>
-            <% for (const message of messages) { %>
-                <div class="bubble <%= message.type === 'question' ? 'user' : 'bot' %>"><%= message.text %></div>
-            <% } %>
-        </div>
-        <% if (error) { %>
-            <p role="alert" class="error"><%= error %></p>
-        <% } %>
+      <section id="messages" class="chat"></section>
 
-      <form class="ask-form" action="/ask" method="POST">
+      <form id="question-form" class="ask-form" action="/ask" method="POST">
         <input id="question" type="text" name="question" placeholder="Skriv et spørgsmål …" autocomplete="off">
         <span class="select-wrap">
           <select class="question-select" onchange="askFromDropdown(this)" aria-label="Vælg et spørgsmål">
             <option value="" disabled selected>Vælg et spørgsmål…</option>
-            <% answers.forEach(function (item) { %>
-            <option value="<%= item.sample %>"><%= item.sample %></option>
-            <% }) %>
           </select>
         </span>
         <button type="submit" aria-label="Send">→</button>
       </form>
 
-      <form class="clear-form" action="/clear-messages" method="POST">
-        <button type="submit">Ryd beskeder</button>
-      </form>
-      <% if (Object.keys(topicStats).length > 0) { %>
-        <section class="stats">
-            <h2>Mest spurgte emner</h2>
-            <ul>
-                <% const sortedTopics = Object.entries(topicStats).sort((a, b) => b[1] - a[1]); %>
-                <% for (const [category, count] of sortedTopics) { %>
-                     <li><span class="stat-topic"><%= category %></span><span class="stat-count"><%= count %></span></li>
-                <% } %>
-            </ul>
-        </section>
-        <% } %>
+      <div class="clear-form">
+        <button type="button" id="clear-messages-button">Ryd beskeder</button>
+      </div>
+    </section>
+
+    <section id="topic-stats" class="stats" hidden>
+      <h2>Mest spurgte emner</h2>
+      <ul id="topic-stats-list"></ul>
     </section>
   </main>
-    <script>
-    function askFromDropdown(select) {
-      const input = document.getElementById('question');
-      input.value = select.value;
-      select.closest('.chat-card').querySelector('.ask-form').submit();
-    }
-
-    // Function to handle button click and submit the form with the selected question
-    function askQuestion(button) {
-      const input = document.getElementById('question');
-      input.value = button.dataset.question;
-      input.closest('.chat-card').querySelector('.ask-form').submit();
-    }
-    // Scroll chat to bottom on page load
-    window.addEventListener('DOMContentLoaded', () => {
-      const chat = document.querySelector('.chat');
-      if (chat) {
-        chat.scrollTop = chat.scrollHeight;
-    }
-  });
-
-  </script>
-  
 </body>
 </html>

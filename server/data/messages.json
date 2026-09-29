@@ -1,109 +1,92 @@
 [
   {
     "type": "question",
-    "text": "Har du en kæreste?"
-  },
-  {
-    "type": "answer",
-    "text": "💛 Jeg har en fransk kæreste. Så ja, mit ordforråd rækker en lille smule længere end “croissant”."
-  },
-  {
-    "type": "question",
-    "text": "Hvad spiller du?"
-  },
-  {
-    "type": "answer",
-    "text": "🎮 Valorant og CS2 er hverdagen. Ellers spiller jeg stort set alt muligt."
-  },
-  {
-    "type": "question",
-    "text": "Hvad drikker du af energidrikke?"
-  },
-  {
-    "type": "answer",
-    "text": "🤔 Beklager, det kan jeg ikke svare på"
-  },
-  {
-    "type": "question",
-    "text": "hvad for en uddannelse er du fra?"
-  },
-  {
-    "type": "answer",
-    "text": "🎓 Multimediedesigner. Nu det så webudvikling så lad os se hvad det kan."
-  },
-  {
-    "type": "question",
-    "text": "Hvad hedder du?"
-  },
-  {
-    "type": "answer",
-    "text": "👋 Sanne. Men ingame går jeg med navnet Fever"
-  },
-  {
-    "type": "question",
-    "text": "Hvad spiller du?"
-  },
-  {
-    "type": "answer",
-    "text": "🎮 Valorant og CS2 er hverdagen. Ellers spiller jeg stort set alt muligt."
-  },
-  {
-    "type": "question",
-    "text": "Hvad er din livret?"
-  },
-  {
-    "type": "answer",
-    "text": "🤔 Beklager, det kan jeg ikke svare på"
-  },
-  {
-    "type": "question",
-    "text": "Har du bygget computer?"
-  },
-  {
-    "type": "answer",
-    "text": "🖥️ Ja. Jeg har bygget omkring 7 stationære computere og er en lille hardware-nørd."
-  },
-  {
-    "type": "question",
-    "text": "Hvad hedder du?"
-  },
-  {
-    "type": "answer",
-    "text": "👋 Sanne. Men ingame går jeg med navnet Fever"
-  },
-  {
-    "type": "question",
     "text": "Hvad hedder du?",
-    "createdAt": "2026-09-22T11:28:52.430Z"
-  },
-  {
-    "type": "question",
-    "text": "Hvad hedder du?",
-    "createdAt": "2026-09-22T11:47:57.453Z"
+    "createdAt": "2026-09-29T16:29:47.840Z"
   },
   {
     "type": "answer",
     "text": "👋 Sanne. Men ingame går jeg med navnet Fever",
-    "createdAt": "2026-09-22T11:47:57.455Z"
+    "createdAt": "2026-09-29T16:29:47.840Z"
   },
   {
     "type": "question",
-    "text": "Hvad er din livret?",
-    "createdAt": "2026-09-22T12:13:18.734Z"
+    "text": "Har du en kæreste?",
+    "createdAt": "2026-09-29T16:30:46.212Z"
   },
   {
     "type": "answer",
-    "text": "🤖 Min livret er lasagne.",
-    "createdAt": "2026-09-22T12:13:18.736Z"
+    "text": "💛 Jeg har en fransk kæreste. Så ja, mit ordforråd rækker en lille smule længere end “croissant”.",
+    "createdAt": "2026-09-29T16:30:46.213Z"
   },
   {
     "type": "question",
-    "text": "Hvad er din livret?",
-    "createdAt": "2026-09-22T12:59:17.088Z"
+    "text": "Hvad er dit yndlingsspil?",
+    "createdAt": "2026-09-29T16:30:49.536Z"
   },
   {
     "type": "answer",
-    "text": "🤖 Min livret er lasagne.",
-    "createdAt": "2026-09-22T12:59:17.089Z"
+    "text": "⭐ Clair Obscur: Expedition 33. Den slog mig bagover fuldstændig.",
+    "createdAt": "2026-09-29T16:30:49.537Z"
+  },
+  {
+    "type": "question",
+    "text": "Hvad er dit yndlingsspil?",
+    "createdAt": "2026-09-29T16:30:53.047Z"
+  },
+  {
+    "type": "answer",
+    "text": "⭐ Clair Obscur: Expedition 33. Den slog mig bagover fuldstændig.",
+    "createdAt": "2026-09-29T16:30:53.048Z"
+  },
+  {
+    "type": "question",
+    "text": "Hvor mange sprog snakker du?",
+    "createdAt": "2026-09-29T16:30:54.868Z"
+  },
+  {
+    "type": "answer",
+    "text": "🗣️ Jeg taler dansk, engelsk samt jeg prøver at lære fransk nogen gange.",
+    "createdAt": "2026-09-29T16:30:54.868Z"
+  },
+  {
+    "type": "question",
+    "text": "Hvad er din yndlingsenergidrikke?",
+    "createdAt": "2026-09-29T16:30:56.754Z"
+  },
+  {
+    "type": "answer",
+    "text": "⚡ Jeg er skiftes mellem redbull eller hvid monster, ja redbull er lidt blandet hvad folk synes!",
+    "createdAt": "2026-09-29T16:30:56.754Z"
+  },
+  {
+    "type": "question",
+    "text": "Hvor mange sprog snakker du?",
+    "createdAt": "2026-09-29T16:30:59.739Z"
+  },
+  {
+    "type": "answer",
+    "text": "🗣️ Jeg taler dansk, engelsk samt jeg prøver at lære fransk nogen gange.",
+    "createdAt": "2026-09-29T16:30:59.739Z"
+  },
+  {
+    "type": "question",
+    "text": "Hvad hedder du?",
+    "createdAt": "2026-09-29T16:31:55.021Z"
+  },
+  {
+    "type": "answer",
+    "text": "👋 Sanne. Men ingame går jeg med navnet Fever",
+    "createdAt": "2026-09-29T16:31:55.021Z"
+  },
+  {
+    "type": "question",
+    "text": "Hvor gammel er du?",
+    "createdAt": "2026-09-29T16:31:56.751Z"
+  },
+  {
+    "type": "answer",
+    "text": "🎂 26 år. Gammel nok til at vide bedre, ung nok til at blive oppe til kl. 2 for “én ranked mere”.",
+    "createdAt": "2026-09-29T16:31:56.751Z"
   }
 ]

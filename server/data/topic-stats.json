@@ -1,8 +1,8 @@
 {
+  "navn": 2,
   "forhold": 1,
-  "spil": 2,
-  "uddannelse": 1,
-  "navn": 3,
-  "pc": 1,
-  "mad": 2
+  "favorit": 2,
+  "sprog": 2,
+  "energidrikke": 1,
+  "alder": 1
 }

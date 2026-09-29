@@ -8,6 +8,12 @@ export async function getMessages(request, response) {
   response.json(messages);
 }
 
+export async function getTopicStats(request, response) {
+  const topicStats = await loadTopicStats();
+
+  response.json(topicStats);
+}
+
 export async function createMessage(request, response) {
   const question = sanitizeQuestion(request.body.question ?? "").trim();
 
