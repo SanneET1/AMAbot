@@ -1,8 +1,6 @@
 {
-  "navn": 3,
   "forhold": 2,
-  "favorit": 2,
-  "sprog": 2,
-  "energidrikke": 1,
-  "alder": 1
+  "alder": 1,
+  "navn": 1,
+  "favorit": 1
 }

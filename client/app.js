@@ -7,6 +7,7 @@ const clearMessagesButton = document.querySelector("#clear-messages-button");
 const questionSelect = document.querySelector(".question-select");
 const topicStatsSection = document.querySelector("#topic-stats");
 const topicStatsList = document.querySelector("#topic-stats-list");
+const errorMessage = document.querySelector("#error-message");
 
 function displayMessage(message) {
   const html = /*html*/ `
@@ -39,6 +40,15 @@ questionForm.addEventListener("submit", async (event) => {
   });
 
   const data = await response.json();
+
+  // Serveren svarer 400 med { error }, fx hvis spørgsmålet mangler "?"
+  if (!response.ok) {
+    errorMessage.textContent = data.error;
+    errorMessage.hidden = false;
+    return;
+  }
+
+  errorMessage.hidden = true;
 
   displayMessage(data.question);
   displayMessage(data.answer);
